@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "networkst"
+version = "0.1.0"
+description = "A python tool for monitoring network switch devices"
+authors = ["jun.h.cha <quffl9612@gmail.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.7.4"
+requests = "^2.32.3"
+netmiko = "^4.4.0"
+
+
+[[tool.poetry.source]]
+name = "pythonhosted"
+url = "https://files.pythonhosted.org"
+priority = "primary"
+
+[tool.black]
+line-length = 88
+
+
+[tool.isort]
+profile = "black"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
