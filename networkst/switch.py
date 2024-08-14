@@ -64,7 +64,7 @@ class CiscoSwitch(RemoteConnectable, NeighborDetectable):
         try:
             self.conn = ConnectHandler(
                 device_type="custom_cisco_ios",
-                host=self.ip,
+                host=str(self.ip),
                 username=id_,
                 password=pw,
                 port=22,

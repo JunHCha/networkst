@@ -15,7 +15,7 @@ Here's a simple example of how to use NetCheckPy to perform a connection test:
 
 ```python
 from ipaddress import IPv4Address
-from netcheckpy import get_switch
+from networkst import get_switch
 from networkst.errors import ConnectionFailedError
 
 switch = get_switch(
