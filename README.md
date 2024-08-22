@@ -11,7 +11,7 @@ Networkst is a Python library for network connectivity testing. It provides a si
 
 ## Usage
 
-Here's a simple example of how to use NetCheckPy to perform a connection test:
+Here's a simple example of how to use Networkst to perform a connection test:
 
 ```python
 from ipaddress import IPv4Address
@@ -31,5 +31,4 @@ except ConnectionFailedError:
 
 ## License
 
-Networkst is licensed under the MIT License. See the [LICENSE](https://github.com/junhyungcha/netcheckpy/blob/main/LICENSE) file for more details.
-
+Networkst is licensed under the MIT License. See the [LICENSE](https://github.com/junhcha/networkst/blob/main/LICENSE) file for more details.
