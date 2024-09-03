@@ -64,7 +64,7 @@ class CiscoSwitch(RemoteConnectable, NeighborDetectable):
         neighbors = list(set(cdp_results + lldp_results))
         return neighbors
 
-    def connect(self, id_: str, pw: str):
+    def connect(self, id_: str, pw: str, secret: str = ""):
         try:
             self.conn = ConnectHandler(
                 device_type="custom_cisco_ios",
@@ -72,7 +72,7 @@ class CiscoSwitch(RemoteConnectable, NeighborDetectable):
                 username=id_,
                 password=pw,
                 port=22,
-                secret=pw,
+                secret=secret or pw,
             )
         except Exception:
             raise ConnectionFailedError()
