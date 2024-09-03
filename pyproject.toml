@@ -18,6 +18,11 @@ name = "pythonhosted"
 url = "https://files.pythonhosted.org"
 priority = "primary"
 
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
 [tool.black]
 line-length = 88
 
