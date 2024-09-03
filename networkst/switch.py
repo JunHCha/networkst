@@ -110,6 +110,11 @@ class CiscoSwitch(RemoteConnectable, NeighborDetectable):
         self.conn.enable(check_state=False)
         return self.conn.send_multiline(["show running-config"]).split("\n")
 
+    def show_logging(self):
+        self._check_connection()
+        self.conn.enable(check_state=False)
+        return self.conn.send_multiline(["show logging"]).split("\n")
+
     def get_cdp(self) -> List[CiscoCDP]:
         self._check_connection()
         rows = self.conn.send_multiline(["show cdp neighbors detail"]).split("\n")
