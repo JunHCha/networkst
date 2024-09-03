@@ -40,11 +40,15 @@ class CiscoSwitch(RemoteConnectable, NeighborDetectable):
         self.cdp: List[CiscoCDP] = []
         self.lldp: List[CiscoLLDP] = []
         self.conn: BaseConnection | None = None
+        self._hostname: str | None = None
 
     @property
     def hostname(self) -> str:
+        if self._hostname:
+            return self._hostname
         self._check_connection()
-        return self.conn.find_prompt()[:-1]
+        self._hostname = self.conn.find_prompt()[:-1]
+        return self._hostname
 
     @property
     def neighbors(self) -> List[Neighbor]:
