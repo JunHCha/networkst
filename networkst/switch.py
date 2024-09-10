@@ -40,11 +40,15 @@ class CiscoSwitch(RemoteConnectable, NeighborDetectable):
         self.cdp: List[CiscoCDP] = []
         self.lldp: List[CiscoLLDP] = []
         self.conn: BaseConnection | None = None
+        self._hostname: str | None = None
 
     @property
     def hostname(self) -> str:
+        if self._hostname:
+            return self._hostname
         self._check_connection()
-        return self.conn.find_prompt()[:-1]
+        self._hostname = self.conn.find_prompt()[:-1]
+        return self._hostname
 
     @property
     def neighbors(self) -> List[Neighbor]:
@@ -60,7 +64,7 @@ class CiscoSwitch(RemoteConnectable, NeighborDetectable):
         neighbors = list(set(cdp_results + lldp_results))
         return neighbors
 
-    def connect(self, id_: str, pw: str):
+    def connect(self, id_: str, pw: str, secret: str = ""):
         try:
             self.conn = ConnectHandler(
                 device_type="custom_cisco_ios",
@@ -68,7 +72,7 @@ class CiscoSwitch(RemoteConnectable, NeighborDetectable):
                 username=id_,
                 password=pw,
                 port=22,
-                secret=pw,
+                secret=secret or pw,
             )
         except Exception:
             raise ConnectionFailedError()
@@ -105,6 +109,11 @@ class CiscoSwitch(RemoteConnectable, NeighborDetectable):
         self._check_connection()
         self.conn.enable(check_state=False)
         return self.conn.send_multiline(["show running-config"]).split("\n")
+
+    def show_logging(self):
+        self._check_connection()
+        self.conn.enable(check_state=False)
+        return self.conn.send_multiline(["show logging"]).split("\n")
 
     def get_cdp(self) -> List[CiscoCDP]:
         self._check_connection()
